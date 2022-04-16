@@ -6,6 +6,10 @@
 @section('content')
 <div class="text-center">
     <a href="{{ route('createApost') }}" class="mt-4 btn btn-success">Create Post</a>
+  
+</div>
+<div class="text-center mt-4">
+<x-button type="success" txt="lol-its-ablad-component" />
 </div>
 <table class="table mt-4 table-hover" >
     <thead>
