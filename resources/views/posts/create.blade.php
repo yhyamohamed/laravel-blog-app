@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-<form method="POST" action="{{ route('store')}}">
+<form method="POST" action="{{ route('posts.store')}}">
     @csrf
     <div class="mb-3">
         <label for="exampleFormControlInput1"  class="form-label">Title</label>
@@ -12,19 +12,17 @@
     </div>
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-        <textarea class="form-control" name='desc' id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea class="form-control" name='description' id="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
 
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
-        <select class="form-control"name='post_creator'>
-            <option value="yaya">yaya</option>
-            <option value="another one">another one</option>
-
-        </select>
+        <select class="form-control"name='user_id'>
+            @foreach ($users as $user)
+                 <option value="{{ $user->id}}">{{ $user->name}}</option>
+             @endforeach
+         </select>
     </div>
-    <input type="hidden" class="form-control" name='created_at' value="{{now()}}">
-
   <button class="btn btn-success">Create</button>
 </form>
 @endsection
