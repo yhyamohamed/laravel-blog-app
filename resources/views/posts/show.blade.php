@@ -32,5 +32,31 @@
       </blockquote>
     </div>
   </div>
+  {{-- "id" => 23
+  "body" => "Laudantium voluptatem nihil aut temporibus. Aut rerum fuga id in quia. Soluta et ratione eum quasi ea."
+  "commentable_type" => "App\Models\Post"
+  "commentable_id" => 6
+  "created_at" => "2022-04-17 21:41:00"
+  "updated_at" => "2022-04-17 21:41:00" --}}
+  @foreach ($post->comment as $comment)
+  {{-- {{dd($comment->commentable->user->name)}} --}}
+  <div class="row w-75 mt-4 bg-success p-1 text-dark bg-opacity-25">
+    <div class="row col-12">
+      <div class="col-8">
+        <p class="col-8 font-weight-normal m-1"> {{$comment->body}}</p> 
+        <strong class="text-muted">written By: {{$comment->commentable->user->name}}</strong>
+      </div>
+      <div class="row col-4">
+        <span class=" offset-4 text-right font-italic"
+        >{{$comment->created_at->diffForHumans()}}</span>
+       
+        <button class="btn btn-sm p-0 text-light rounded border border-success btn-warning col " href="">EDIT</button>
+        <form class="d-inline col p-0 " method="POST" style="margin-left: 2px">
+            <button class=" w-100 h-100 btn btn-danger border border-info ">DELETE</button>
+        </form>
+        </div>
+    </div>
+</div>
+  @endforeach
 
   @endsection

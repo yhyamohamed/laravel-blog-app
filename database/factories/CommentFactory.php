@@ -13,8 +13,8 @@ class CommentFactory extends Factory
     {
 
         $types = [
-            'App\User' => User::factory(User::class),
-            'App\Post' => Post::factory(Post::class)
+            'App\Models\User' => User::factory(User::class),
+            'App\Models\Post' => Post::factory(Post::class)
         ];
         $type = $this->faker->randomElement(array_keys($types));
         $classType = $types[$type];
