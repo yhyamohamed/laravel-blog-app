@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
@@ -13,7 +14,7 @@ class PostController extends Controller
 
     public function index()
     {
-       $posts= Post::paginate(5)->withQueryString();
+        $posts = Post::withTrashed()->paginate(5);
         return view('posts.index', [
             'posts' => $posts,
         ]);
@@ -49,8 +50,8 @@ class PostController extends Controller
 
     public function show($id)
     {
+        
         $post = Post::find($id);
-
         return view('posts.show', [
             'post' => $post,
         ]);
@@ -90,5 +91,11 @@ class PostController extends Controller
 
         Post::where('id', $id)->delete();
         return redirect()->route('posts.index')->with('danger', "post No.$id deleted!");
+    }
+    public function restore($id)
+    {
+        $post = Post::withTrashed()->find($id);
+        $post->restore();
+        return redirect()->route('posts.index')->with('success', "post No.$id restored!");
     }
 }

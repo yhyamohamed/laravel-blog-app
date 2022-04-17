@@ -33,19 +33,28 @@
         <th scope="col">Actions</th>
       </tr>
       @foreach ($posts as $post)
-        <tr>
+        <tr  @if ($post->trashed())class="table-danger"  @endif>
             <td>{{ $post->id}}</td>
             <td>{{ $post->title}}</td>
             <td>{{ $post->user->name}}</td>
             <td>{{ $post->created_at}}</td>
           
             <td>
-                <a href="{{ route('posts.show', ['post' => $post->id]) }}" class="btn btn-info">View</a>
-                <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Edit</a>
                 
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#moadal{{$post->id}}">
-  delete 
-</button>
+               @if ($post->trashed())
+               <form action="{{ route('posts.restore', ['post' => $post->id]) }}" method="POST" class="d-inline">
+                @csrf
+                @method('PUT')
+                <button type="submit" class="col-8  btn btn-success">restore</button> 
+               </form>
+               @else
+               <a href="{{ route('posts.show', ['post' => $post->id]) }}" class="btn btn-info">View</a>
+                <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Edit</a>
+               <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#moadal{{$post->id}}">
+                delete 
+              </button>
+               @endif
+
 
 
             </td>
