@@ -40,12 +40,9 @@ class PostController extends Controller
     public function store(StorePostRequest  $request)
     {   
         $fileInRequest = $request->file('postAvatar');
-    
-        // $contents = Storage::disk('public')->get($p);
-        // dd(Storage::disk('public')->exists($p) );
-  
+
         $request->merge(['postAvatar' => $fileInRequest]);
-        // dd($request->all());
+        
         $post =Post::create($request->only('title', 'description', 'user_id','postAvatar'));
         
         return redirect()->route('posts.index')->with('success', "post created");;
@@ -54,19 +51,15 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-
-        // $post = Post::find(230);
-        // dd($post->postAvatar);
         return view('posts.show', [
             'post' => $post,
         ]);
     }
 
 
-    public function edit($id)
+    public function edit(Post $post)
     {
         $users =  User::all();
-        $post = Post::find($id);
         return view('posts.edit', [
             'post' => $post,
             'users' => $users,
