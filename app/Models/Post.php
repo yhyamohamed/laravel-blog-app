@@ -44,9 +44,11 @@ class Post extends Model
             ]
         ];
     }
-    protected function setPostAvatarAttribute($value): String
+    protected function setPostAvatarAttribute($value)
     {
-        $path = $value->store('images/uploads', ['disk' => 'posts-Avatar']);
-        return   $this->attributes['postAvatar'] = $path;
+        if ($value) {
+            $path = $value->store('images/uploads', ['disk' => 'posts-Avatar']);
+            return   $this->attributes['postAvatar'] = $path;
+        }
     }
 }

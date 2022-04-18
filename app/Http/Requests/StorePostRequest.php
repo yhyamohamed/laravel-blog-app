@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
-
+use App\Rules\PostsCount;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePostRequest extends FormRequest
@@ -17,7 +17,7 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required|unique:posts|min:3',
             'description' => 'required|min:3',
-            'user_id' => 'required|exists:users,id',
+            'user_id' => ['required','exists:users,id',new PostsCount],
             'postAvatar' => 'mimes:jpg,png'
         ];
     }
