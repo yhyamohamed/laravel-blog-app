@@ -9,6 +9,7 @@ use App\Http\Requests\StoreUpdateRequest;
 use App\Models\Post;
 use App\Models\User;
 use App\Jobs\PruneOldPostsJob;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller
@@ -37,16 +38,25 @@ class PostController extends Controller
 
 
     public function store(StorePostRequest  $request)
-    {
-        Post::create($request->only('title', 'description', 'user_id'));
+    {   
+        $fileInRequest = $request->file('postAvatar');
+    
+        // $contents = Storage::disk('public')->get($p);
+        // dd(Storage::disk('public')->exists($p) );
+  
+        $request->merge(['postAvatar' => $fileInRequest]);
+        // dd($request->all());
+        $post =Post::create($request->only('title', 'description', 'user_id','postAvatar'));
+        
         return redirect()->route('posts.index')->with('success', "post created");;
     }
 
 
-    public function show($id)
+    public function show(Post $post)
     {
 
-        $post = Post::find($id);
+        // $post = Post::find(230);
+        // dd($post->postAvatar);
         return view('posts.show', [
             'post' => $post,
         ]);

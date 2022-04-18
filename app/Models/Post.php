@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Comment;
 use Carbon\Carbon;
+
 
 class Post extends Model
 {
@@ -16,19 +18,18 @@ class Post extends Model
     use SoftDeletes;
     use Sluggable;
 
-   
+
 
     protected $appends = ['human_readable_date'];
-    protected $fillable= ['title','description','user_id'];
+    protected $fillable = ['title', 'description', 'user_id', 'postAvatar'];
 
-     public function user()
+    public function user()
     {
-       return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
     public function comment()
     {
         return $this->morphMany(Comment::class, 'commentable');
-       
     }
 
     protected function getHumanReadableDateAttribute()
@@ -42,5 +43,10 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+    protected function setPostAvatarAttribute($value): String
+    {
+        $path = $value->store('images/uploads', ['disk' => 'posts-Avatar']);
+        return   $this->attributes['postAvatar'] = $path;
     }
 }

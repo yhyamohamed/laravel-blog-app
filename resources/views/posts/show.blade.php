@@ -12,12 +12,16 @@
      
       {{$post->title}}
     </div>
-    <div class="card-body">
+    <div class="row card-body">
+      <div class="col-8">
       <blockquote class="blockquote mb-0">
         <p><span class="fs-5 fst-italic">description : </span>{{$post->description}}</p>
        <h4> <span class="fs-5 fst-italic mb-2">creator : </span>{{$post->user->name}}</h4>
         <footer class="blockquote-footer mt-2">created At : <cite title="Source Title">{{Carbon\Carbon::createFromTimeString($post->created_at)->toDayDateTimeString()}}</cite></footer>
-      </blockquote>
+      </blockquote></div>
+      <div class="col-4">
+      <img src="{{ asset( $post->postAvatar ?? 'default.jpg') }}" class="rounded float-end card-img-top" alt="...">
+      </div>
     </div>
   </div>
 <div class="card mt-4 w-75">
