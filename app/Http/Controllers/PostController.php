@@ -8,6 +8,8 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\StoreUpdateRequest;
 use App\Models\Post;
 use App\Models\User;
+use App\Jobs\PruneOldPostsJob;
+
 
 class PostController extends Controller
 {
@@ -17,6 +19,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::withTrashed()->paginate(5);
+        // PruneOldPostsJob::dispatch();
+       
         return view('posts.index', [
             'posts' => $posts,
         ]);
@@ -34,14 +38,14 @@ class PostController extends Controller
 
     public function store(StorePostRequest  $request)
     {
-        Post::create($request->only('title', 'description','user_id'));
+        Post::create($request->only('title', 'description', 'user_id'));
         return redirect()->route('posts.index')->with('success', "post created");;
     }
 
 
     public function show($id)
     {
-       
+
         $post = Post::find($id);
         return view('posts.show', [
             'post' => $post,
