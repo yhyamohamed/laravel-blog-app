@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\PostsCount;
 class StoreUpdateRequest extends FormRequest
 {
    
@@ -11,12 +11,16 @@ class StoreUpdateRequest extends FormRequest
     {
         return true;
     }
+    protected function prepareForValidation()
+    {
+        $this->merge(['tags' => explode(',', $this->tags)]);
+    }
     public function rules()
     {
         return [
-            'title' => 'required|unique:posts|min:3',
+            'title' => 'required|min:3',
             'description' => 'required|min:3',
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required','exists:users,id',
         ];
     }
     public function messages()

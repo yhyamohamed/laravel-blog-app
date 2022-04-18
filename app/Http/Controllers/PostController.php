@@ -10,7 +10,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Jobs\PruneOldPostsJob;
 use Illuminate\Support\Facades\Storage;
-
+use php_user_filter;
 
 class PostController extends Controller
 {
@@ -51,6 +51,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+       
         return view('posts.show', [
             'post' => $post,
             'tags'=>$post->tags
@@ -60,29 +61,21 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        $tags = $post->tags->pluck('name')->implode(',');
         $users =  User::all();
         return view('posts.edit', [
             'post' => $post,
             'users' => $users,
+            'tags'=>$tags
         ]);
     }
 
 
-    public function update(StoreUpdateRequest $request, $id)
+    public function update(StoreUpdateRequest $request, Post $post)
     {
-        request()->validate([
-            'title' => 'required',
-        ]);
-        $post = Post::find($id);
-
-        $post->id = $id;
-        $post->title  = $request->title;
-        $post->user_id = $request->user_id;
-        $post->description = $request->description;
-        $post->tags = $request->tags;
-        $post->save();
-
-        return redirect()->route('posts.index')->with('success', "post No.$id updated!");
+        // $post->syncTags($request->tags); 
+        $post->update($request->only('title', 'description', 'user_id','postAvatar','tags'));
+        return redirect()->route('posts.index')->with('success', "post No.$post->id updated!");
     }
 
 

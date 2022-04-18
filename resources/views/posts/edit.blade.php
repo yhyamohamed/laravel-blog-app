@@ -16,7 +16,21 @@
         <label for="exampleFormControlTextarea1" class="form-label">Description</label>
         <textarea class="form-control" name='description' id="exampleFormControlTextarea1" rows="3">{{ $post->description}}</textarea>
     </div>
- 
+    <div class="mb-3">
+        <label for="formFileSm" class="form-label">post photo</label>
+        <input class="form-control form-control-sm" value="{{old('postAvatar','')}}"name='postAvatar' id="formFileSm" type="file">
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1"  class="form-label">tags</label>
+        {{-- {{dd($tags->toArray())}} --}}
+        @if ($tags)
+        <input type="text" class="form-control" value="{{$tags}}" name='tags' id="exampleFormControlInput1" placeholder="Enter comma seperated tags">
+
+        @else
+        <input type="text" class="form-control" value="{{old('tags')}}" name='tags' id="exampleFormControlInput1" placeholder="Enter comma seperated tags">
+        @endif
+    </div>  
+   
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
         

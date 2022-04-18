@@ -51,4 +51,11 @@ class Post extends Model
             return   $this->attributes['postAvatar'] = $path;
         }
     }
+    // protected function tags(): Attribute
+    // {
+    //     return Attribute::make(
+    //         // get: fn ($value) => explode(',', $value),
+    //         // set: fn ($value) => explode(',', $value),
+    //     );
+    // }
 }
