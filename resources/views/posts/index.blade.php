@@ -32,7 +32,7 @@
     </div>
 @endif
 
-<table class="table mt-4 table-hover" >
+<table class="table mt-4 table-hover table-striped bg-white" >
     <thead>
       <tr class="table-info">
         <th scope="col">#</th>
