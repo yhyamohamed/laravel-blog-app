@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('title')
-    create Post
+    Edit Post
 @endsection
 
 @section('content')
+
 <form method="POST" action="{{ route('posts.update',['post'=>$post->id])}}">
     @csrf
     @method('PUT')

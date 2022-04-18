@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-   
+   ///static method to find factory 
     protected $fillable = [
         'name',
         'email',

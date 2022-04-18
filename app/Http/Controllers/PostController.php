@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\StoreUpdateRequest;
 use App\Models\Post;
 use App\Models\User;
 
@@ -30,15 +32,10 @@ class PostController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StorePostRequest  $request)
     {
 
-        request()->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'user_id' => 'required',
-        ]);
-
+    
         Post::create([
             'title' =>  $request->title,
             'description' =>  $request->description,
@@ -69,7 +66,7 @@ class PostController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(StoreUpdateRequest $request, $id)
     {
         request()->validate([
             'title' => 'required',

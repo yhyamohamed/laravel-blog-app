@@ -32,14 +32,8 @@
       </blockquote>
     </div>
   </div>
-  {{-- "id" => 23
-  "body" => "Laudantium voluptatem nihil aut temporibus. Aut rerum fuga id in quia. Soluta et ratione eum quasi ea."
-  "commentable_type" => "App\Models\Post"
-  "commentable_id" => 6
-  "created_at" => "2022-04-17 21:41:00"
-  "updated_at" => "2022-04-17 21:41:00" --}}
+
   @foreach ($post->comment as $comment)
-  {{-- {{dd($comment->commentable->user->name)}} --}}
   <div class="row w-75 mt-4 bg-success p-1 text-dark bg-opacity-25">
     <div class="row col-12">
       <div class="col-8">
