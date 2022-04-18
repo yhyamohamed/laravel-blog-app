@@ -11,7 +11,10 @@ class StorePostRequest extends FormRequest
     {
         return true;
     }
-
+    protected function prepareForValidation()
+    {
+        $this->merge(['tags' => explode(',', $this->tags)]);
+    }
     public function rules()
     {
         return [

@@ -43,7 +43,7 @@ class PostController extends Controller
 
         $request->merge(['postAvatar' => $fileInRequest]);
         
-        $post =Post::create($request->only('title', 'description', 'user_id','postAvatar'));
+        $post =Post::create($request->only('title', 'description', 'user_id','postAvatar','tags'));
         
         return redirect()->route('posts.index')->with('success', "post created");;
     }
@@ -53,6 +53,7 @@ class PostController extends Controller
     {
         return view('posts.show', [
             'post' => $post,
+            'tags'=>$post->tags
         ]);
     }
 
@@ -78,6 +79,7 @@ class PostController extends Controller
         $post->title  = $request->title;
         $post->user_id = $request->user_id;
         $post->description = $request->description;
+        $post->tags = $request->tags;
         $post->save();
 
         return redirect()->route('posts.index')->with('success', "post No.$id updated!");

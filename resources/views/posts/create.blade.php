@@ -19,6 +19,10 @@
         <label for="formFileSm" class="form-label">post photo</label>
         <input class="form-control form-control-sm" value="{{old('postAvatar','')}}"name='postAvatar' id="formFileSm" type="file">
       </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1"  class="form-label">tags</label>
+        <input type="text" class="form-control" value="{{old('tags')}}" name='tags' id="exampleFormControlInput1" placeholder="Enter comma seperated tags">
+    </div>
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
         <select class="form-control"name='user_id'>

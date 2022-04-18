@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
+use Spatie\Tags\HasTags;
 use App\Models\Comment;
 use Carbon\Carbon;
 
@@ -17,11 +17,11 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
     use Sluggable;
-
+    use HasTags;
 
 
     protected $appends = ['human_readable_date'];
-    protected $fillable = ['title', 'description', 'user_id', 'postAvatar'];
+    protected $fillable = ['title', 'description', 'user_id', 'postAvatar','tags'];
 
     public function user()
     {

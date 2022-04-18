@@ -18,7 +18,22 @@
         <p><span class="fs-5 fst-italic">description : </span>{{$post->description}}</p>
        <h4> <span class="fs-5 fst-italic mb-2">creator : </span>{{$post->user->name}}</h4>
         <footer class="blockquote-footer mt-2">created At : <cite title="Source Title">{{Carbon\Carbon::createFromTimeString($post->created_at)->toDayDateTimeString()}}</cite></footer>
-      </blockquote></div>
+      @forelse ($tags as $tag)
+      <button class="button rounded btn btn-outline-success btn-sm">
+        {{$tag->name}}
+      </button>
+      @empty
+      <small class="w-50 alert alert-warning d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div>
+          <i class="fa-solid fa-circle-exclamation"></i>
+          no tags added for that post
+        </div>
+      </small>
+      @endforelse
+     
+      </blockquote>
+    </div>
       <div class="col-4">
       <img src="{{ asset( $post->postAvatar ?? 'default.jpg') }}" class="rounded float-end card-img-top" alt="...">
       </div>
