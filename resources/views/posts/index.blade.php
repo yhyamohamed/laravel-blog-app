@@ -37,6 +37,7 @@
       <tr class="table-info">
         <th scope="col">#</th>
         <th scope="col">Title</th>
+        <th scope="col">Slug</th>
         <th scope="col">Posted By</th>
         <th scope="col">Created At</th>
         <th scope="col">Actions</th>
@@ -45,6 +46,7 @@
         <tr  @if ($post->trashed())class="table-danger"  @endif>
             <td>{{ $post->id}}</td>
             <td>{{ $post->title}}</td>
+            <td>{{ $post->slug}}</td>
             <td>{{ $post->user->name}}</td>
             <td>{{ $post->created_at}}</td>
           
