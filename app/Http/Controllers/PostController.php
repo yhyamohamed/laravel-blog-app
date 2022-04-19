@@ -79,11 +79,10 @@ class PostController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-
-        Post::where('id', $id)->delete();
-        return redirect()->route('posts.index')->with('danger', "post No.$id deleted!");
+        $post->delete();
+        return redirect()->route('posts.index')->with('danger', "post No.$post->id deleted!");
     }
     public function restore($id)
     {

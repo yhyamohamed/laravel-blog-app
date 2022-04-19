@@ -48,7 +48,7 @@
             <td>{{ $post->title}}</td>
             <td>{{ $post->slug}}</td>
             <td>{{ $post->user->name}}</td>
-            <td>{{ $post->created_at}}</td>
+            <td>{{ $post->human_readable_date}}</td>
           
             <td>
                 
