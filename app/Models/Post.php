@@ -29,7 +29,7 @@ class Post extends Model
     }
     public function comment()
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->morphMany(Comment::class, 'commentable')->latest();;
     }
 
     protected function getHumanReadableDateAttribute()
