@@ -58,4 +58,8 @@ class Post extends Model
     //         // set: fn ($value) => explode(',', $value),
     //     );
     // }
+//     public function getRouteKeyName()
+// {
+//     return 'title';
+// }
 }
