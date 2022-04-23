@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\PostController;
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
