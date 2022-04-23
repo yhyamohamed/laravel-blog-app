@@ -58,11 +58,14 @@
                             </div>
 
                             <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                <div class="row col-md-8 offset-md-4">
+                                    <button type="submit" class="btn btn-primary col-5">
                                         {{ __('Login') }}
                                     </button>
-                                    <a href="{{route('gethub.login')}}" class="btn btn-success">login with GitHub</a>
+                                    <a href="{{route('gethub.login')}}" class="btn btn-success col-5">login with GitHub</a>
+                                    <a href="{{ url('auth/google') }}" class="col">
+                                        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
+                                    </a>
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}

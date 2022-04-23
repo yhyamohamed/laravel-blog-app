@@ -6,7 +6,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\GoogleController;
+  
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/home', [PostController::class, 'index'])->name('home');
@@ -45,6 +46,8 @@ Route::get('/auth/callback', function () {
     $user = Socialite::driver('github')->user();
     Auth::login($user);
  
-    return redirect()->route('posts.index')
+    return redirect()->route('posts.index');
     // $user->token
 });
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
