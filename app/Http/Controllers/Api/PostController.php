@@ -7,13 +7,14 @@ use App\Http\Requests\StoreUpdateRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Http\Resources\PostResource;
 
 class PostController extends Controller
 {
   
     public function index()
     {
-       return $posts = Post::withTrashed()->get();
+       return PostResource::collection(Post::withTrashed()->get());
     }
 
  
@@ -32,7 +33,7 @@ class PostController extends Controller
  
     public function show(POST $post)
     {
-       return $post;
+       return new PostResource($post);
     }
 
     public function edit($id)
