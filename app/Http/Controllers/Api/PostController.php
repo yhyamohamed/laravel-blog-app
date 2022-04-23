@@ -14,7 +14,7 @@ class PostController extends Controller
   
     public function index()
     {
-       return PostResource::collection(Post::withTrashed()->get());
+       return PostResource::collection(Post::with('user')->paginate());
     }
 
  
