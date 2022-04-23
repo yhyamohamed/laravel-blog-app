@@ -35,3 +35,16 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index']);
+use Laravel\Socialite\Facades\Socialite;
+ 
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('gethub.login');
+ 
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('github')->user();
+    Auth::login($user);
+ 
+    return redirect()->route('posts.index')
+    // $user->token
+});
