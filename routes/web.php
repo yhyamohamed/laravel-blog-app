@@ -48,10 +48,10 @@ Route::get('/github/redirect', function () {
 Route::get('/github/callback', function () {
     $githubUser = Socialite::driver('github')->stateless()->user();
   
-
+// dd($githubUser->id);
     $user = User::firstOrCreate([
         'github_id' => $githubUser->id,
-    ], [
+    ],[
         'name' => $githubUser->nickname,
         'password' => Hash::make($githubUser->id),
         'email' =>$githubUser->email,
@@ -59,7 +59,7 @@ Route::get('/github/callback', function () {
     ]);
     Auth::login($user);
     return redirect()->route('posts.index');
-    // $user->token
+   
 });
-Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
-Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::get('google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('google/callback', [GoogleController::class, 'handleGoogleCallback']);
