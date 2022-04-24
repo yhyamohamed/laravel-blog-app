@@ -47,8 +47,7 @@ Route::get('/github/redirect', function () {
 
 Route::get('/github/callback', function () {
     $githubUser = Socialite::driver('github')->stateless()->user();
-  
-// dd($githubUser->id);
+
     $user = User::firstOrCreate([
         'github_id' => $githubUser->id,
     ],[
@@ -61,5 +60,5 @@ Route::get('/github/callback', function () {
     return redirect()->route('posts.index');
    
 });
-Route::get('google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('google/callback', [GoogleController::class, 'handleGoogleCallback']);
