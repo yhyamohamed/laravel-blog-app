@@ -6,9 +6,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\GoogleController;
 use App\Models\User;
-  
+
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/home', [PostController::class, 'index'])->name('home');
@@ -20,7 +21,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::put('/posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.delete');
- // =====================================================
+    // =====================================================
     //                      COMMENTS ROUTS
     // =====================================================
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
@@ -37,24 +38,25 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index']);
+
 use Laravel\Socialite\Facades\Socialite;
- 
-Route::get('/auth/redirect', function () {
+
+Route::get('/github/redirect', function () {
     return Socialite::driver('github')->redirect();
 })->name('gethub.login');
- 
-Route::get('/auth/callback', function () {
-    $githubUser = Socialite::driver('github')->user();
- 
-    $user = User::updateOrCreate([
+
+Route::get('/github/callback', function () {
+    $githubUser = Socialite::driver('github')->stateless()->user();
+  
+
+    $user = User::firstOrCreate([
         'github_id' => $githubUser->id,
     ], [
-        'name' => $githubUser->name,
-        'email' => $githubUser->email,
-        'github_token' => $githubUser->token,
-        'github_refresh_token' => $githubUser->refreshToken,
+        'name' => $githubUser->nickname,
+        'password' => Hash::make($githubUser->id),
+        'email' =>$githubUser->email,
+        'github_id' => $githubUser->id
     ]);
- 
     Auth::login($user);
     return redirect()->route('posts.index');
     // $user->token
